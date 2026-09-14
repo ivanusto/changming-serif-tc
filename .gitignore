@@ -1,0 +1,5 @@
+build/
+work/
+tests/results/
+tests/.post_id
+__pycache__/
