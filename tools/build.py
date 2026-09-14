@@ -150,6 +150,64 @@ def subset_woff2(src_path, cps):
     return buf.getvalue()
 
 
+def write_zip(zpath, members):
+    """members: list of (archive name, source path or bytes)."""
+    with zipfile.ZipFile(zpath, "w", zipfile.ZIP_DEFLATED) as z:
+        for arcname, src in members:
+            if isinstance(src, bytes):
+                z.writestr(arcname, src)
+            else:
+                z.write(src, arcname)
+
+
+def kit_text(name, version, extra=None):
+    text = open(os.path.join(ROOT, "kits", name), encoding="utf-8").read().replace("{{VERSION}}", version)
+    for key, value in (extra or {}).items():
+        text = text.replace("{{%s}}" % key, value)
+    return text.encode("utf-8")
+
+
+def build_downloads(version, tmp, plugin_dir, manifest):
+    """Non-WordPress downloads: full TTF, full WOFF2 and the sliced web font kit (plugin zip untouched)."""
+    out = os.path.join(BUILD, "fonts")
+    shutil.rmtree(out, ignore_errors=True)
+    os.makedirs(out)
+    prefix = f"changming-serif-tc-{version}"
+
+    ttf, woff2, sizes = [], [], {}
+    for weight, style in WEIGHTS.items():
+        base = f"{CFG['ps_family']}-{style}"
+        ttf_path = os.path.join(out, base + ".ttf")
+        shutil.copy(os.path.join(tmp, f"static-{weight}.ttf"), ttf_path)  # already renamed
+        font = TTFont(ttf_path, recalcTimestamp=False)
+        font.flavor = "woff2"
+        woff2_path = os.path.join(out, base + ".woff2")
+        font.save(woff2_path)
+        ttf.append((base + ".ttf", ttf_path))
+        woff2.append((base + ".woff2", woff2_path))
+        sizes[f"SIZE_{weight}"] = f"{os.path.getsize(woff2_path) / 1024 / 1024:.1f} MB"
+
+    write_zip(os.path.join(BUILD, f"{prefix}-ttf.zip"),
+              ttf + [("OFL.txt", CFG["ofl"]), ("README.txt", kit_text("ttf-README.txt", version))])
+    write_zip(os.path.join(BUILD, f"{prefix}-woff2.zip"),
+              woff2 + [("OFL.txt", CFG["ofl"]), ("README.txt", kit_text("woff2-README.txt", version, sizes))])
+
+    preload = {e["slice"]: e["file"] for e in manifest["weights"]["400"] if e["slice"] in ("l0", "h0")}
+    names = {"PRELOAD_L0": preload["l0"], "PRELOAD_H0": preload["h0"]}
+    assets = os.path.join(plugin_dir, "assets")
+    kit = [("changming/changming.css", os.path.join(assets, "cq.css")),
+           ("changming/changming-tail.css", os.path.join(assets, "cq-tail.css"))]
+    for f in sorted(os.listdir(os.path.join(assets, "fonts"))):
+        kit.append((f"changming/fonts/{f}", os.path.join(assets, "fonts", f)))
+    kit += [("example.html", kit_text("example.html", version, names)),
+            ("README.txt", kit_text("webfont-README.txt", version, names)),
+            ("OFL.txt", CFG["ofl"])]
+    write_zip(os.path.join(BUILD, f"{prefix}-webfont.zip"), kit)
+    for suffix in ("ttf", "woff2", "webfont"):
+        p = os.path.join(BUILD, f"{prefix}-{suffix}.zip")
+        print(f"{os.path.basename(p)}: {os.path.getsize(p) / 1024 / 1024:.2f} MB")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--version", required=True)
@@ -210,6 +268,8 @@ def main():
             for f in sorted(files):
                 full = os.path.join(base, f)
                 z.write(full, os.path.relpath(full, BUILD))
+
+    build_downloads(args.version, tmp, plugin_dir, manifest)
     shutil.rmtree(tmp)
 
     br = lambda s: len(brotli.compress(s.encode(), quality=11)) / 1024

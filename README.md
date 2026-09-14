@@ -16,7 +16,28 @@
 - **WordPress 外掛**：後台可調整套用範圍、標題字重、額外選擇器、英文字型與預載。偵測到 JNews 佈景主題或 Elementor 時會自動處理它們的標題與全域字型。
 - **自架字型**：不依賴第三方字型服務，字型檔名帶內容雜湊，可以放心設定長期快取。
 
-## 下載與安裝
+## 下載版本
+
+[Releases](https://github.com/ivanusto/changming-serif-tc/releases) 提供四種檔案：
+
+| 檔案 | 適用情境 |
+|---|---|
+| `changming-webfont-<版本>.zip` | WordPress 網站，安裝後在後台設定 |
+| `changming-serif-tc-<版本>-webfont.zip` | 其他網站使用，**建議選這個**；分片載入，只下載頁面用到的字 |
+| `changming-serif-tc-<版本>-ttf.zip` | 安裝到電腦，在文書、設計軟體或 App 中使用 |
+| `changming-serif-tc-<版本>-woff2.zip` | 完整單檔 WOFF2，瀏覽器會整檔下載，適合 App 內嵌或自行子集化 |
+
+**網頁字型包的用法**：把 `changming/` 資料夾放上網站，在 `<head>` 加入兩行，再指定字型即可。
+
+```html
+<link rel="stylesheet" href="/assets/changming/changming.css">
+<link rel="stylesheet" href="/assets/changming/changming-tail.css" media="print" onload="this.media='all'">
+<style>body { font-family: "ChangMing Serif TC", Georgia, serif; }</style>
+```
+
+預載設定與注意事項寫在字型包內的 `README.txt`，也可以直接參考 `example.html`。
+
+## WordPress 外掛安裝
 
 1. 到 [Releases](https://github.com/ivanusto/changming-serif-tc/releases) 下載 `changming-webfont-<版本>.zip`。
 2. WordPress 後台進入「外掛」、「安裝外掛」、「上傳外掛」，選擇 zip 並啟用。
