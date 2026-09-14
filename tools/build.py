@@ -33,7 +33,7 @@ CFG = {
     "php": "changming-webfont.php",
     "extra_files": ["includes", "uninstall.php"],
     "charfreq": os.path.join(ROOT, "data", "charfreq.json"),
-    "description": "subset and morph of Noto Serif TC",
+    "description": "subset and morph of Noto Serif TC with Noto Serif CJK TC and GenYo Min 2 supplements",
 }
 
 HOT_SIZE = 500     # most frequent characters, preloaded together with Latin
@@ -45,10 +45,13 @@ CONTENT_RANGES = [(0x4E00, 0x9FFF), (0x3400, 0x4DBF), (0xF900, 0xFAFF)]
 PUNCT_RANGES = [(0x3000, 0x303F), (0xFF01, 0xFF60), (0xFFE0, 0xFFE6)]
 # Latin: ASCII, Latin-1 and general punctuation.
 LATIN_RANGES = [(0x0020, 0x007E), (0x00A0, 0x00FF), (0x2000, 0x206F)]
+# Extended Latin, spacing modifiers, combining marks and superscripts for Taiwanese and Hakka romanisation;
+# a separate slice so the preloaded l0 stays small.
+LATIN_EXT_RANGES = [(0x0100, 0x024F), (0x02B0, 0x036F), (0x1E00, 0x1EFF), (0x2070, 0x209F)]
 # Everything else CJK-ish that the font carries goes to the tail so it still renders.
 TAIL_RANGES = CONTENT_RANGES + [
     (0x2E80, 0x2FDF), (0x3100, 0x312F), (0x3190, 0x31BF), (0x3200, 0x33FF),
-    (0xFE10, 0xFE1F), (0xFE30, 0xFE4F), (0x20000, 0x2FFFF),
+    (0xFE10, 0xFE1F), (0xFE30, 0xFE4F), (0x20000, 0x323AF),
 ]
 
 
@@ -82,6 +85,7 @@ def plan_slices(cmap):
     )
     punct = sorted(cp for cp in cmap if in_ranges(cp, PUNCT_RANGES))
     slices = [("l0", sorted(cp for cp in cmap if in_ranges(cp, LATIN_RANGES))),
+              ("l1", sorted(cp for cp in cmap if in_ranges(cp, LATIN_EXT_RANGES))),
               ("h0", sorted(content[:HOT_SIZE] + punct))]
     for i, part in enumerate(chunks(content[HOT_SIZE:], FREQ_SLICE), 1):
         slices.append((f"f{i:02d}", sorted(part)))

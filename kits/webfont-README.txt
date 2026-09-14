@@ -38,5 +38,6 @@ OFL.txt                       字型授權
 
 == 授權 ==
 字型依 SIL Open Font License 1.1 授權（見 OFL.txt）。
-昌明體修改自 Noto Serif TC，(c) 2017-2024 Adobe。Noto 是 Google 的商標。
+昌明體修改自 Noto Serif TC，並從 Noto Serif CJK TC 與源樣明體（GenYo Min 2）
+補入台語、客語用字，(c) 2014-2024 Adobe。Noto 是 Google 的商標。
 專案：https://github.com/ivanusto/changming-serif-tc

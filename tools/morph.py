@@ -175,7 +175,9 @@ def rebuild(font_path, out_path, params, names=None, procs=None):
     glyf = font["glyf"]
     order = names or [g for g in font.getGlyphOrder() if glyf[g].numberOfContours != 0]
     errors, strategies = [], {}
-    with Pool(procs or os.cpu_count(), initializer=_init, initargs=(font_path, params)) as pool:
+    # Each worker holds its own copy of the font; MORPH_PROCS caps memory on busy hosts.
+    procs = procs or int(os.environ.get("MORPH_PROCS") or 0) or os.cpu_count()
+    with Pool(procs, initializer=_init, initargs=(font_path, params)) as pool:
         for name, result in pool.imap_unordered(_job, order, chunksize=64):
             if result is None:
                 continue
