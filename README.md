@@ -38,6 +38,22 @@
 
 預載設定與注意事項寫在字型包內的 `README.txt`，也可以直接參考 `example.html`。
 
+## 安裝到電腦（TTF）
+
+**Windows 11**
+
+直接雙擊或按「安裝」只會安裝給目前使用者（`%LOCALAPPDATA%\Microsoft\Windows\Fonts`），部分瀏覽器與程式會找不到。建議安裝給所有使用者，檔案會放在 `C:\Windows\Fonts`：
+1. 若之前已安裝過，先到「設定」、「個人化」、「字型」搜尋「昌明體」，進入後按「解除安裝」，Regular 與 Bold 都要移除。
+2. 同時選取兩個 TTF 檔，按右鍵，選「顯示更多選項」、「為所有使用者安裝」（需要系統管理員權限）。也可以直接把兩個檔案拖進 `C:\Windows\Fonts`。
+3. 完全關閉瀏覽器與正在使用的程式後重新開啟。
+
+**macOS**：雙擊字型檔，在「字體簿」中按「安裝」。
+**Linux**：複製到 `~/.local/share/fonts/` 後執行 `fc-cache -f`。
+
+**字型名稱**：英文為 `ChangMing Serif TC`，繁體中文系統的字型選單顯示為「昌明體」。
+- **Chrome**：網址列輸入 `chrome://settings/fonts`，在字型選單中選「昌明體」。
+- **Firefox**：「設定」、「一般」、「字型」、「進階」，「字型適用於」選「繁體中文」，再選「昌明體」。
+
 ## WordPress 外掛安裝
 
 1. 到 [Releases](https://github.com/ivanusto/changming-serif-tc/releases) 下載 `changming-webfont-<版本>.zip`。
