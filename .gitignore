@@ -1,0 +1,7 @@
+# OS files
+Thumbs.db
+.DS_Store
+
+# Temporary uploads or build files
+uploads/
+*.tmp
