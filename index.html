@@ -30,6 +30,16 @@
 <meta name="twitter:description" content="以思源明體為骨架，收斂襯線的鋒芒、圓潤筆畫的轉折。涵蓋台語與客語用字，SIL OFL 1.1 自由授權。">
 <meta name="twitter:image" content="https://ivanusto.github.io/changming-serif-tc/assets/og-cover.png">
 <meta name="twitter:image:alt" content="昌明體 ChangMing Serif TC 字樣">
+<!-- 本頁固定文字的專用子集。整頁 498 個字一次載完，約 400 KB。 -->
+<link rel="preload" href="assets/changming-page/cmsr-page-400.6059bc08.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/changming-page/cmsr-page-700.8496c628.woff2" as="font" type="font/woff2" crossorigin>
+<!-- 完整的分片字型包，給試打區輸入本頁沒有的字時用。非阻塞載入，
+     而且必須排在專用子集之前，unicode-range 相同時後宣告的才會勝出。 -->
+<link rel="stylesheet" href="assets/changming/changming.css" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="assets/changming/changming-tail.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="assets/changming/changming.css"><link rel="stylesheet" href="assets/changming/changming-tail.css"></noscript>
+<link rel="stylesheet" href="assets/changming-page.css">
+
 <script src="./support.js"></script>
 </head>
 <body>
@@ -38,8 +48,6 @@
   <link rel="stylesheet" href="_ds/classical-4c9690d9-3668-44bb-9870-728dd8a90a5d/styles.css">
   <script src="_ds/classical-4c9690d9-3668-44bb-9870-728dd8a90a5d/_ds_bundle.js"></script>
   <style>
-    @font-face { font-family: "ChangMing Serif TC"; src: url("fonts/ChangMingSerifTC-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
-    @font-face { font-family: "ChangMing Serif TC"; src: url("fonts/ChangMingSerifTC-Bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
     html { scroll-behavior: smooth; }
     body { margin: 0; background: var(--color-bg); color: var(--color-text); }
     a { color: var(--color-accent-700); text-decoration-color: var(--color-accent-300); }
