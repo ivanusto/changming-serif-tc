@@ -2,6 +2,8 @@
 
 給繁體中文網站用的人文風格明體字 webfont 網頁字型，附 WordPress 外掛，亦提供標準字型檔下載給電腦使用。
 
+[Live Demo 網站]( https://ivanusto.github.io/changming-serif-tc/) 
+
 昌明體以思源明體（Noto Serif TC）為骨架，主要設計概念是調整了這些元素：
 - **收斂三角襯線**：襯線不再那麼銳利。
 - **圓潤筆畫轉折**：字從「出版明體」往「人文書體」靠。
