@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<title>ChangMing Serif TC card renderer</title>
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=block");
+
+  @font-face {
+    font-family: "ChangMing Serif TC";
+    src: url("../fonts/ChangMingSerifTC-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-display: block;
+  }
+  @font-face {
+    font-family: "ChangMing Serif TC";
+    src: url("../fonts/ChangMingSerifTC-Bold.woff2") format("woff2");
+    font-weight: 700;
+    font-display: block;
+  }
+
+  :root {
+    --bg: #f3f2f2;
+    --text: #201f1d;
+    --accent: #b68235;
+    --accent-700: #7d5411;
+    --neutral-500: #8a8585;
+    --neutral-600: #6f6a6a;
+    --neutral-700: #544f4f;
+    --divider: rgba(32, 31, 29, 0.16);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); }
+  body {
+    color: var(--text);
+    font-family: "ChangMing Serif TC", serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .latin { font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif; }
+  .tnum { font-feature-settings: "tnum"; font-variant-numeric: lining-nums tabular-nums; }
+
+  /* ---- 1200x630 open graph card ---- */
+  .og {
+    width: 1200px;
+    height: 630px;
+    padding: 56px 72px 48px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+  .og-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 24px;
+  }
+  .og-kicker {
+    font-size: 15px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--accent-700);
+  }
+  .og-meta {
+    font-size: 15px;
+    letter-spacing: 0.18em;
+    color: var(--neutral-700);
+    white-space: nowrap;
+  }
+  .og-rule {
+    height: 1px;
+    background: var(--divider);
+    margin: 22px 0 0;
+  }
+  .og-body { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  .og-wordmark {
+    font-weight: 400;
+    font-size: 196px;
+    line-height: 1.08;
+    letter-spacing: 0.08em;
+  }
+  .og-name {
+    margin-top: 30px;
+    font-size: 38px;
+    letter-spacing: 0.06em;
+    color: var(--text);
+  }
+  .og-tagline {
+    margin-top: 14px;
+    font-size: 26px;
+    line-height: 1.7;
+    letter-spacing: 0.02em;
+    color: var(--neutral-700);
+  }
+  .og-foot {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 15px;
+    letter-spacing: 0.14em;
+    color: var(--neutral-600);
+  }
+  .og-glyph {
+    position: absolute;
+    right: 52px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 428px;
+    line-height: 1;
+    color: var(--accent);
+    opacity: 0.085;
+    pointer-events: none;
+  }
+
+  /* ---- square icon ---- */
+  .icon {
+    width: 512px;
+    height: 512px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .icon-glyph {
+    font-weight: 700;
+    font-size: 400px;
+    line-height: 1;
+  }
+
+  body[data-card="og"] .icon { display: none; }
+  body[data-card="icon"] .og { display: none; }
+
+  #harness-out { position: fixed; left: -9999px; top: -9999px; }
+</style>
+</head>
+<body data-card="og">
+
+<div class="og">
+  <div class="og-glyph" aria-hidden="true">昌</div>
+  <div class="og-top">
+    <div class="og-kicker latin">A Humanist Serif for Traditional Chinese</div>
+    <div class="og-meta latin tnum">SIL OFL 1.1 · v1.1.0</div>
+  </div>
+  <div class="og-rule"></div>
+  <div class="og-body">
+    <div class="og-wordmark" id="og-wordmark">昌明體</div>
+    <div class="og-name latin">ChangMing Serif TC</div>
+    <div class="og-tagline">給繁體中文長文閱讀的人文明體</div>
+  </div>
+  <div class="og-foot latin tnum">ivanusto.github.io/changming-serif-tc</div>
+</div>
+
+<div class="icon">
+  <div class="icon-glyph" id="icon-glyph">昌</div>
+</div>
+
+<pre id="harness-out"></pre>
+
+<script>
+  var card = new URLSearchParams(location.search).get('card') || 'og';
+  document.body.dataset.card = card;
+
+  document.fonts.ready.then(function () {
+    var probe = card === 'icon'
+      ? document.getElementById('icon-glyph')
+      : document.getElementById('og-wordmark');
+    var out = {
+      card: card,
+      regularLoaded: document.fonts.check('400 196px "ChangMing Serif TC"'),
+      boldLoaded: document.fonts.check('700 332px "ChangMing Serif TC"'),
+      probeWidth: Math.round(probe.getBoundingClientRect().width * 100) / 100,
+      probeHeight: Math.round(probe.getBoundingClientRect().height * 100) / 100,
+      bodyBg: getComputedStyle(document.body).backgroundColor
+    };
+    document.getElementById('harness-out').textContent = JSON.stringify(out);
+    document.documentElement.setAttribute('data-harness-done', '1');
+  });
+</script>
+</body>
+</html>
