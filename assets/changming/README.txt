@@ -1,4 +1,4 @@
-昌明體 ChangMing Serif TC 1.1.0：網頁字型包（分片版）
+昌明體 ChangMing Serif TC 1.2.0：網頁字型包（分片版）
 
 這個資料夾適合任何網站使用（不需要 WordPress）。字型已依常用字切成許多小檔，
 瀏覽器只會下載頁面實際用到的字。
@@ -16,8 +16,8 @@ OFL.txt                       字型授權
 
 2. 在每個頁面的 <head> 加入（路徑依實際位置調整）：
 
-   <link rel="preload" href="/assets/changming/fonts/cmsr-400-l0.1733afae.woff2" as="font" type="font/woff2" crossorigin>
-   <link rel="preload" href="/assets/changming/fonts/cmsr-400-h0.4cd24b30.woff2" as="font" type="font/woff2" crossorigin>
+   <link rel="preload" href="/assets/changming/fonts/cmsr-400-l0.770a5b2a.woff2" as="font" type="font/woff2" crossorigin>
+   <link rel="preload" href="/assets/changming/fonts/cmsr-400-h0.b4921061.woff2" as="font" type="font/woff2" crossorigin>
    <link rel="stylesheet" href="/assets/changming/changming.css">
    <link rel="stylesheet" href="/assets/changming/changming-tail.css" media="print" onload="this.media='all'">
 
