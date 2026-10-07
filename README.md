@@ -128,9 +128,9 @@ Noto Serif TC 缺少的字，依序從下列來源取原始字形，再和其他
 需求：docker、curl、sha256sum、unzip。
 
 ```sh
-./build.sh 1.2.0                 # 完整建置，含約 10 分鐘的字形檢查
-SKIP_QA=1 ./build.sh 1.2.0       # 略過字形檢查
-MORPH_PROCS=8 ./build.sh 1.2.0   # 限制形態學處理的平行數，記憶體較少時使用
+./build.sh 1.2.1                 # 完整建置，含約 10 分鐘的字形檢查
+SKIP_QA=1 ./build.sh 1.2.1       # 略過字形檢查
+MORPH_PROCS=8 ./build.sh 1.2.1   # 限制形態學處理的平行數，記憶體較少時使用
 ```
 
 **流程**
@@ -157,7 +157,7 @@ MORPH_PROCS=8 ./build.sh 1.2.0   # 限制形態學處理的平行數，記憶體
 
 ```sh
 tests/setup_wp.sh                                   # 以 docker 起本機 WordPress 並建立測試文章
-tests/wp_tests.sh "$PWD/build/changming-webfont-1.2.0.zip"  # 20 項外掛功能測試，zip 要給絕對路徑
+tests/wp_tests.sh "$PWD/build/changming-webfont-1.2.1.zip"  # 20 項外掛功能測試，zip 要給絕對路徑
 ```
 
 測試涵蓋以下項目，最後會把外掛解除安裝。

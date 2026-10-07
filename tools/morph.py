@@ -147,8 +147,10 @@ def raster_check(src, out, reach):
     xmin, ymin, xmax, ymax = src.bounds
     pad = reach + GRID
     src_in = out_in = lost = excess = 0
-    offsets = [(reach, 0), (-reach, 0), (0, reach), (0, -reach),
-               (reach * 0.7, reach * 0.7), (-reach * 0.7, reach * 0.7), (reach * 0.7, -reach * 0.7), (-reach * 0.7, -reach * 0.7)]
+    # Probe at full and half reach: a single ring steps right over hairlines thinner than the
+    # probe overshoot (the top stroke of 軾 at 700) and reports their thickened edge as a blob.
+    offsets = [(dx * r, dy * r) for r in (reach, reach / 2)
+               for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1), (0.7, 0.7), (-0.7, 0.7), (0.7, -0.7), (-0.7, -0.7))]
     y = ymin - pad
     while y <= ymax + pad:
         x = xmin - pad

@@ -1,6 +1,6 @@
 #!/bin/sh
 # Full build: download sources, instance, add Taiwanese and Hakka glyphs, morph, QA, then slice and package.
-# usage: ./build.sh 1.2.0        (SKIP_QA=1 skips the ~10 minute outline check)
+# usage: ./build.sh 1.2.1        (SKIP_QA=1 skips the ~10 minute outline check)
 set -eu
 cd "$(dirname "$0")"
 VERSION="${1:?usage: ./build.sh <version>}"
