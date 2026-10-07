@@ -29,8 +29,9 @@ OFL.txt, https://openfontlicense.org).
 
 Modifications: added missing Taiwanese and Hakka glyphs; instanced from weights 300 and 600; outlines morphed with an
 opening of radius 10, a closing of radius 12 (400) or 14 (700) and a
-thickening of 7 (400) or 12 (700) font units, to soften the serifs, round the
-stroke turns and reduce stroke contrast; renamed; subset and sliced by
+thickening of 7 (400) or 12 (700) font units, reduced for dense glyphs to keep
+the gray even, to soften the serifs, round the stroke turns and reduce stroke
+contrast; renamed; subset and sliced by
 unicode-range. The fonts are distributed under the OFL only and are not sold
 by themselves.
 

@@ -4,6 +4,10 @@ opening(r): erode then dilate by r, rounds convex corners and blunts the triangu
 closing(c): dilate then erode by c, rounds the inner corners of stroke turns.
 thicken(d): net outward offset; thin horizontals gain proportionally more than verticals,
             which lowers stroke contrast. A lighter base weight keeps overall colour similar.
+
+Added ink grows with outline length, so a uniform thicken darkens dense glyphs (鷹, 驪) most.
+With knee/gamma/floor set, glyphs whose source gray exceeds knee times the CJK median get a
+smaller thicken, chosen so their gray is pulled toward the median; all other glyphs are unchanged.
 """
 import argparse
 import json
@@ -73,10 +77,53 @@ def to_recording(path):
 _WORK = {}
 
 
-def _init(font_path, params):
+def _init(font_path, params, ref_gray=None):
     font = TTFont(font_path, lazy=True)
     _WORK["gs"] = font.getGlyphSet()
     _WORK["params"] = params
+    _WORK["em2"] = font["head"].unitsPerEm ** 2
+    _WORK["ref"] = ref_gray
+
+
+MORPH_KEYS = ("opening", "closing", "thicken")
+
+
+def gray(path):
+    """Ink area as a share of the em square."""
+    return abs(path.area) / _WORK["em2"]
+
+
+def _gray_job(name):
+    try:
+        return gray(glyph_path(_WORK["gs"], name))
+    except Exception:
+        return None
+
+
+def density_thicken(src, params):
+    """Thicken for this glyph: the full amount unless its gray is above knee times the reference.
+
+    Gray is close to linear in thicken, so one extra morph at thicken 0 is enough to interpolate
+    the amount that lands on the target gray t = g1 * (knee / rel) ** (1 - gamma).
+    """
+    d0 = params.get("thicken", 0)
+    knee, ref = params.get("knee"), _WORK.get("ref")
+    if not knee or not ref or d0 <= 0:
+        return d0
+    rel = gray(src) / ref
+    if rel <= knee:
+        return d0
+    shape = {k: params[k] for k in MORPH_KEYS if k in params}
+    try:
+        g0 = gray(morph(src, **{**shape, "thicken": 0}))
+        g1 = gray(morph(src, **shape))
+    except Exception:
+        return d0
+    if g1 <= g0:
+        return d0
+    t = g1 * (knee / rel) ** (1 - params.get("gamma", 0.5))
+    d = d0 * (t - g0) / (g1 - g0)
+    return round(min(d0, max(params.get("floor", 0) * d0, d)), 2)
 
 
 MAX_LOST = 0.04    # opening legitimately trims serif tips and hairline ends
@@ -148,13 +195,15 @@ def reach_for(params):
 
 def _job(name):
     gs = _WORK["gs"]
-    params = _WORK["params"]
     try:
         src = glyph_path(gs, name)
     except Exception as e:
-        return name, ("error", f"source: {e}")
+        return name, ("error", f"source: {e}", None)
     if not list(src.segments):
         return name, None
+    params = {k: _WORK["params"][k] for k in MORPH_KEYS if k in _WORK["params"]}
+    if params.get("thicken"):
+        params["thicken"] = density_thicken(src, _WORK["params"])
     for label, attempt in _attempts(src, params):
         try:
             out = attempt()
@@ -163,10 +212,19 @@ def _job(name):
                 continue
             if out.clockwise != src.clockwise:
                 out.reverse()
-            return name, (label, to_recording(out))
+            return name, (label, to_recording(out), params.get("thicken", 0))
         except Exception:
             continue
-    return name, ("error", "all strategies failed")
+    return name, ("error", "all strategies failed", None)
+
+
+def reference_gray(font_path, procs):
+    """Median gray of the CJK Unified Ideographs block, the yardstick for density_thicken."""
+    font = TTFont(font_path, lazy=True)
+    names = sorted({n for cp, n in font.getBestCmap().items() if 0x4E00 <= cp <= 0x9FFF})
+    with Pool(procs, initializer=_init, initargs=(font_path, {})) as pool:
+        grays = sorted(g for g in pool.imap_unordered(_gray_job, names, chunksize=256) if g)
+    return grays[len(grays) // 2] if grays else None
 
 
 def rebuild(font_path, out_path, params, names=None, procs=None):
@@ -174,18 +232,21 @@ def rebuild(font_path, out_path, params, names=None, procs=None):
     font = TTFont(font_path)
     glyf = font["glyf"]
     order = names or [g for g in font.getGlyphOrder() if glyf[g].numberOfContours != 0]
-    errors, strategies = [], {}
+    errors, strategies, adjusted = [], {}, []
     # Each worker holds its own copy of the font; MORPH_PROCS caps memory on busy hosts.
     procs = procs or int(os.environ.get("MORPH_PROCS") or 0) or os.cpu_count()
-    with Pool(procs, initializer=_init, initargs=(font_path, params)) as pool:
+    ref = reference_gray(font_path, procs) if params.get("knee") else None
+    with Pool(procs, initializer=_init, initargs=(font_path, params, ref)) as pool:
         for name, result in pool.imap_unordered(_job, order, chunksize=64):
             if result is None:
                 continue
-            label, rec = result
+            label, rec, used = result
             if label == "error":
                 errors.append((name, rec))  # glyph keeps its source outline
                 continue
             strategies[label] = strategies.get(label, 0) + 1
+            if used != params.get("thicken", 0):
+                adjusted.append(used)
             pen = TTGlyphPen(None)
             cu = Cu2QuPen(pen, max_err=1.0, reverse_direction=False)
             for op, args in rec:
@@ -202,7 +263,13 @@ def rebuild(font_path, out_path, params, names=None, procs=None):
                 vadvance, tsb = font["vmtx"][name]
                 font["vmtx"][name] = (vadvance, tsb + (old.yMax - new.yMax))
     font.save(out_path)
-    return {"glyphs": len(order), "strategies": strategies, "kept_source": len(errors), "kept_sample": errors[:10]}
+    report = {"glyphs": len(order), "strategies": strategies, "kept_source": len(errors), "kept_sample": errors[:10]}
+    if ref:
+        adjusted.sort()
+        report["density"] = {"reference_gray": round(ref, 4), "adjusted": len(adjusted),
+                             "thicken_min": adjusted[0] if adjusted else None,
+                             "thicken_median": adjusted[len(adjusted) // 2] if adjusted else None}
+    return report
 
 
 def instance(src, weight, out_path):

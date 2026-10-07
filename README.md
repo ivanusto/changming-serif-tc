@@ -128,9 +128,9 @@ Noto Serif TC 缺少的字，依序從下列來源取原始字形，再和其他
 需求：docker、curl、sha256sum、unzip。
 
 ```sh
-./build.sh 1.1.0                 # 完整建置，含約 10 分鐘的字形檢查
-SKIP_QA=1 ./build.sh 1.1.0       # 略過字形檢查
-MORPH_PROCS=8 ./build.sh 1.1.0   # 限制形態學處理的平行數，記憶體較少時使用
+./build.sh 1.2.0                 # 完整建置，含約 10 分鐘的字形檢查
+SKIP_QA=1 ./build.sh 1.2.0       # 略過字形檢查
+MORPH_PROCS=8 ./build.sh 1.2.0   # 限制形態學處理的平行數，記憶體較少時使用
 ```
 
 **流程**
@@ -141,8 +141,10 @@ MORPH_PROCS=8 ./build.sh 1.1.0   # 限制形態學處理的平行數，記憶體
    - 開運算：半徑 10，收斂襯線與尖角。
    - 閉運算：半徑 12 或 14，圓潤內側轉角。
    - 整體加粗：7 或 12 單位，降低對比。
-4. `tools/qa.py` 以格點取樣逐字檢查，確認沒有筆畫流失或填滿，有問題即中止建置。
-5. `tools/build.py` 依字頻切片、產生 CSS 與外掛 zip，輸出在 `build/`。
+   - 依密度調整加粗：灰度（墨量佔字身的比例）超過漢字中位數 1.1 倍的密字，加粗量依密度遞減，最少保留三成，避免「鷹」這類筆畫多的字偏重。
+5. `tools/qa.py` 以格點取樣逐字檢查，確認沒有筆畫流失或填滿，有問題即中止建置。
+6. `tools/gray.py` 報告字頻前 3000 字的灰度分布，供比較灰度是否均勻。
+7. `tools/build.py` 依字頻切片、產生 CSS 與外掛 zip，輸出在 `build/`。
 
 **實測效果**（以「一」與「丨」量測豎橫筆畫比）
 
@@ -155,7 +157,7 @@ MORPH_PROCS=8 ./build.sh 1.1.0   # 限制形態學處理的平行數，記憶體
 
 ```sh
 tests/setup_wp.sh                                   # 以 docker 起本機 WordPress 並建立測試文章
-tests/wp_tests.sh "$PWD/build/changming-webfont-1.1.0.zip"  # 20 項外掛功能測試，zip 要給絕對路徑
+tests/wp_tests.sh "$PWD/build/changming-webfont-1.2.0.zip"  # 20 項外掛功能測試，zip 要給絕對路徑
 ```
 
 測試涵蓋以下項目，最後會把外掛解除安裝。

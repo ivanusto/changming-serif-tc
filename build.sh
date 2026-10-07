@@ -1,6 +1,6 @@
 #!/bin/sh
 # Full build: download sources, instance, add Taiwanese and Hakka glyphs, morph, QA, then slice and package.
-# usage: ./build.sh 1.1.0        (SKIP_QA=1 skips the ~10 minute outline check)
+# usage: ./build.sh 1.2.0        (SKIP_QA=1 skips the ~10 minute outline check)
 set -eu
 cd "$(dirname "$0")"
 VERSION="${1:?usage: ./build.sh <version>}"
@@ -43,11 +43,12 @@ python tools/morph.py instance '$CJK' 300 work/cjk-300.ttf
 python tools/morph.py instance '$CJK' 600 work/cjk-600.ttf
 python tools/merge_supplement.py work/noto-300.ttf work/base-300.ttf build/supplement-400.json work/cjk-300.ttf '$GENYO_300'
 python tools/merge_supplement.py work/noto-600.ttf work/base-600.ttf build/supplement-700.json work/cjk-600.ttf '$GENYO_600'
-python tools/morph.py rebuild work/base-300.ttf work/morph-400.ttf '{\"opening\":10,\"closing\":12,\"thicken\":7}'
-python tools/morph.py rebuild work/base-600.ttf work/morph-700.ttf '{\"opening\":10,\"closing\":14,\"thicken\":12}'
+python tools/morph.py rebuild work/base-300.ttf work/morph-400.ttf '{\"opening\":10,\"closing\":12,\"thicken\":7,\"knee\":1.1,\"gamma\":0.5,\"floor\":0.3}'
+python tools/morph.py rebuild work/base-600.ttf work/morph-700.ttf '{\"opening\":10,\"closing\":14,\"thicken\":12,\"knee\":1.1,\"gamma\":0.5,\"floor\":0.3}'
 if [ \"\$SKIP_QA\" != 1 ]; then
   python tools/qa.py work/base-300.ttf work/morph-400.ttf work/qa-400.json 25
   python tools/qa.py work/base-600.ttf work/morph-700.ttf work/qa-700.json 32
 fi
+python tools/gray.py work/base-300.ttf work/morph-400.ttf work/base-600.ttf work/morph-700.ttf
 python tools/build.py --version $VERSION
 "
