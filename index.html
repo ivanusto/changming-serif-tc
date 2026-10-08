@@ -30,9 +30,9 @@
 <meta name="twitter:description" content="以思源明體為骨架，收斂襯線的鋒芒、圓潤筆畫的轉折。涵蓋台語與客語用字，SIL OFL 1.1 自由授權。">
 <meta name="twitter:image" content="https://ivanusto.github.io/changming-serif-tc/assets/og-cover.png">
 <meta name="twitter:image:alt" content="昌明體 ChangMing Serif TC 字樣">
-<!-- 本頁固定文字的專用子集。整頁 498 個字一次載完，約 400 KB。 -->
-<link rel="preload" href="assets/changming-page/cmsr-page-400.6194417d.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/changming-page/cmsr-page-700.060314d3.woff2" as="font" type="font/woff2" crossorigin>
+<!-- 本頁固定文字的專用子集。整頁 546 個字一次載完，約 440 KB。 -->
+<link rel="preload" href="assets/changming-page/cmsr-page-400.1c32e334.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/changming-page/cmsr-page-700.9292bade.woff2" as="font" type="font/woff2" crossorigin>
 <!-- 完整的分片字型包，給試打區輸入本頁沒有的字時用。非阻塞載入，
      而且必須排在專用子集之前，unicode-range 相同時後宣告的才會勝出。 -->
 <link rel="stylesheet" href="assets/changming/changming.css" media="print" onload="this.media='all'">
@@ -55,9 +55,16 @@
     .share-link { transition: color 0.18s ease, border-color 0.18s ease; }
     .share-link:hover { color: var(--color-accent-400); border-color: var(--color-accent-400); }
     .share-link:focus-visible { outline: 2px solid var(--color-accent-400); outline-offset: 2px; }
+    .version-tag { display: inline-flex; align-items: center; gap: var(--space-2); border: 1px solid var(--color-accent-300); border-radius: 999px; padding: 4px 14px; color: var(--color-accent-700); text-decoration: none; transition: border-color 0.18s ease, background 0.18s ease; }
+    .version-tag:hover { border-color: var(--color-accent-600); background: var(--color-accent-100); }
+    /* 雙欄區塊的欄寬寫在 inline style，手機寬度要用 !important 收成單欄 */
+    @media (max-width: 760px) {
+      .cm-split { grid-template-columns: minmax(0, 1fr) !important; gap: var(--space-6) !important; }
+      .cm-rule { border-left: 0 !important; padding-left: 0 !important; }
+    }
   </style>
 </helmet>
-<div style="font-family: 'ChangMing Serif TC', 'Noto Serif TC', serif; min-width: 0;">
+<div style="font-family: 'ChangMing Serif TC', 'Noto Serif TC', serif; min-width: 0; overflow-x: clip;">
   <nav class="nav" style="position: sticky; top: 0; z-index: 20; background: var(--color-bg);" data-screen-label="導覽">
     <div class="nav-brand" style="font-family: inherit; font-weight: 400; letter-spacing: 0.12em;">昌明體 <span style="font-family: var(--font-heading); letter-spacing: 0.04em;">ChangMing Serif TC</span></div>
     <div style="display: flex; gap: calc(var(--space-4) * 1.25); align-items: center; font-size: 14px; flex-wrap: wrap;">
@@ -74,7 +81,10 @@
   <header style="max-width: 1120px; margin: 0 auto; padding: calc(var(--space-8) * 1.75) var(--space-6) calc(var(--space-8) * 1.5);" data-screen-label="開場">
     <div style="display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-4); flex-wrap: wrap;">
       <div style="font-family: var(--font-heading); font-feature-settings: 'tnum'; letter-spacing: 0.28em; text-transform: uppercase; font-size: 13px; color: var(--color-accent-700);">A Humanist Serif for Traditional Chinese</div>
-      <div style="font-family: var(--font-heading); font-feature-settings: 'tnum'; font-size: 13px; letter-spacing: 0.18em; color: var(--color-neutral-600);">SIL OFL 1.1 · v1.2.1 · 2026</div>
+      <div style="display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; font-size: 13px;">
+        <a class="version-tag" href="https://github.com/ivanusto/changming-serif-tc/releases/tag/v1.2.1" target="_blank" rel="noopener"><span style="letter-spacing: 0.12em;">最新版本</span><span style="font-feature-settings: 'lnum', 'tnum'; letter-spacing: 0.04em; font-weight: 700;">v1.2.1</span><span style="font-feature-settings: 'lnum', 'tnum'; color: var(--color-neutral-600);">2026-10-08</span></a>
+        <span style="font-family: var(--font-heading); letter-spacing: 0.18em; color: var(--color-neutral-600);">SIL OFL 1.1</span>
+      </div>
     </div>
     <div class="hr" style="margin: var(--space-4) 0 var(--space-8);"></div>
     <h1 style="font-family: inherit; margin: 0; font-weight: 400; font-size: clamp(72px, 16vw, 200px); line-height: 1.12; letter-spacing: 0.04em; text-wrap: balance;">昌明體</h1>
@@ -87,17 +97,17 @@
 
   <section id="idea" style="border-top: 1px solid var(--color-divider);" data-screen-label="理念">
     <div style="max-width: 1120px; margin: 0 auto; padding: calc(var(--space-8) * 1.5) var(--space-6);">
-      <div style="display: grid; grid-template-columns: minmax(180px, 280px) minmax(0, 1fr); gap: var(--space-8); align-items: start;">
+      <div class="cm-split" style="display: grid; grid-template-columns: minmax(180px, 280px) minmax(0, 1fr); gap: var(--space-8); align-items: start;">
         <div>
           <div style="font-family: var(--font-heading); font-feature-settings: 'tnum'; font-size: 13px; letter-spacing: 0.24em; color: var(--color-accent-700);">01 · CONCEPT</div>
           <h2 style="font-family: inherit; margin: var(--space-3) 0 0; font-weight: 700; font-size: 34px; line-height: 1.4;">從出版明體，<br>往人文書體靠</h2>
         </div>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: calc(var(--space-6) * 1.25);">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: calc(var(--space-6) * 1.25);">
           <p style="margin: 0; text-align: justify; line-height: 2.1; font-size: 16px;">明體是繁體中文最熟悉的閱讀字體，但多數明體為印刷而生。襯線銳利、橫細豎粗，放上螢幕便顯得緊張。昌明體選擇另一條路，保留明體的骨架與可讀性，把稜角磨圓、把對比壓低，讓版面讀起來更均衡、更現代。</p>
-          <p style="margin: 0; text-align: justify; line-height: 2.1; font-size: 16px; border-left: 1px solid var(--color-divider); padding-left: calc(var(--space-6) * 1.25);">它同時是一套為網頁而設計的字型。依常用字頻切成分片，瀏覽器只下載頁面實際用到的字。涵蓋台語、客語用字與羅馬字調號，並以 SIL OFL 1.1 自由授權，可自架、可修改、可再散布。</p>
+          <p class="cm-rule" style="margin: 0; text-align: justify; line-height: 2.1; font-size: 16px; border-left: 1px solid var(--color-divider); padding-left: calc(var(--space-6) * 1.25);">它同時是一套為網頁而設計的字型。依常用字頻切成分片，瀏覽器只下載頁面實際用到的字。涵蓋台語、客語用字與羅馬字調號，並以 SIL OFL 1.1 自由授權，可自架、可修改、可再散布。</p>
         </div>
       </div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: calc(var(--space-4) * 1.25); margin-top: calc(var(--space-8) * 1.5);">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: calc(var(--space-4) * 1.25); margin-top: calc(var(--space-8) * 1.5);">
         <div class="card">
           <div class="card-kicker">調整一</div>
           <div style="font-size: 96px; line-height: 1.3; font-weight: 400; margin: var(--space-2) 0;">永</div>
@@ -124,7 +134,7 @@
     <div style="max-width: 1120px; margin: 0 auto; padding: calc(var(--space-8) * 1.5) var(--space-6);">
       <div style="font-family: var(--font-heading); font-feature-settings: 'tnum'; font-size: 13px; letter-spacing: 0.24em; color: var(--color-accent-700);">02 · COMPARISON</div>
       <h2 style="font-family: inherit; margin: var(--space-3) 0 calc(var(--space-6) * 1.25); font-weight: 700; font-size: 34px;">與思源明體對照</h2>
-      <div style="display: grid; grid-template-columns: minmax(0, 2fr) minmax(240px, 1fr); gap: var(--space-8); align-items: start;">
+      <div class="cm-split" style="display: grid; grid-template-columns: minmax(0, 2fr) minmax(240px, 1fr); gap: var(--space-8); align-items: start;">
         <figure class="plate" style="margin: 0;">
           <img src="assets/glyph-comparison.png" alt="思源明體與昌明體的字形比較" style="width: 100%; display: block;">
         </figure>
@@ -149,7 +159,7 @@
       <h2 style="font-family: inherit; margin: var(--space-3) 0 calc(var(--space-6) * 1.25); font-weight: 700; font-size: 34px;">字樣</h2>
       <div style="font-size: clamp(40px, 7.6vw, 92px); line-height: 1.5; letter-spacing: 0.06em; text-wrap: balance;">永東國酬愛鬱靈鷹袋</div>
       <div class="hr" style="margin: calc(var(--space-6) * 1.25) 0;"></div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-8);">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: var(--space-8);">
         <div>
           <div style="font-family: var(--font-heading); font-feature-settings: 'tnum'; font-size: 13px; letter-spacing: 0.2em; color: var(--color-neutral-600); margin-bottom: var(--space-4);">REGULAR 400 · <span style="font-family: 'ChangMing Serif TC', 'Noto Serif TC', serif;">內文</span></div>
           <p style="margin: 0; text-align: justify; line-height: 2.15; font-size: 17px;">昌明體以思源明體為骨架，收斂了三角襯線、圓潤了筆畫轉折，並降低橫豎粗細的對比，讓長篇文字讀起來更平穩。英文 English text 與數字 0123456789 也保持一致的風格。罕用字同樣完整，如鑽齌遳蹤錸匉峁隳褰。</p>
@@ -175,7 +185,7 @@
       <div style="font-family: var(--font-heading); font-feature-settings: 'tnum'; font-size: 13px; letter-spacing: 0.24em; color: var(--color-accent-700);">04 · IN USE</div>
       <h2 style="font-family: inherit; margin: var(--space-3) 0 var(--space-4); font-weight: 700; font-size: 34px;">應用場景</h2>
       <p style="margin: 0 0 calc(var(--space-6) * 1.25); max-width: 38em; text-align: justify; line-height: 2; font-size: 15px; color: var(--color-neutral-700);">以下場景皆以昌明體即時排版合成，非照片，因此每一筆襯線都是字型的真實樣貌。</p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: calc(var(--space-4) * 1.25); align-items: stretch;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: calc(var(--space-4) * 1.25); align-items: stretch;">
         <figure style="margin: 0; display: flex; flex-direction: column; gap: var(--space-3);">
           <div style="border: 1px solid var(--color-divider); background: var(--color-neutral-200); padding: var(--space-8) var(--space-6); display: flex; justify-content: center; align-items: center; min-height: 380px;">
             <div style="width: 190px; aspect-ratio: 5 / 7; background: var(--color-neutral-100); border: 1px solid var(--color-neutral-300); border-left: 6px solid var(--color-neutral-300); box-shadow: var(--shadow-md); transform: rotate(-1.2deg); padding: var(--space-6) var(--space-4); display: flex; justify-content: space-between;">
@@ -214,7 +224,7 @@
 
   <section id="taigi" style="border-top: 1px solid var(--color-divider);" data-screen-label="台語客語">
     <div style="max-width: 1120px; margin: 0 auto; padding: calc(var(--space-8) * 1.5) var(--space-6);">
-      <div style="display: grid; grid-template-columns: minmax(180px, 280px) minmax(0, 1fr); gap: var(--space-8); align-items: start;">
+      <div class="cm-split" style="display: grid; grid-template-columns: minmax(180px, 280px) minmax(0, 1fr); gap: var(--space-8); align-items: start;">
         <div>
           <div style="font-family: var(--font-heading); font-feature-settings: 'tnum'; font-size: 13px; letter-spacing: 0.24em; color: var(--color-accent-700);">05 · TÂI-GÍ &amp; HAKKA</div>
           <h2 style="font-family: inherit; margin: var(--space-3) 0 0; font-weight: 700; font-size: 34px; line-height: 1.4;">台語、客語，<br>攏寫會出來</h2>
@@ -260,8 +270,9 @@
   <section id="download" style="border-top: 1px solid var(--color-divider);" data-screen-label="下載">
     <div style="max-width: 1120px; margin: 0 auto; padding: calc(var(--space-8) * 1.5) var(--space-6);">
       <div style="font-family: var(--font-heading); font-feature-settings: 'tnum'; font-size: 13px; letter-spacing: 0.24em; color: var(--color-accent-700);">07 · DOWNLOAD</div>
-      <h2 style="font-family: inherit; margin: var(--space-3) 0 calc(var(--space-6) * 1.25); font-weight: 700; font-size: 34px;">下載與安裝</h2>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: calc(var(--space-4) * 1.25);">
+      <h2 style="font-family: inherit; margin: var(--space-3) 0 var(--space-3); font-weight: 700; font-size: 34px;">下載與安裝</h2>
+      <p style="margin: 0 0 calc(var(--space-6) * 1.25); font-size: 15px; line-height: 2; color: var(--color-neutral-700);">目前版本 <strong style="color: var(--color-accent-700); font-size: 17px; font-feature-settings: 'lnum', 'tnum';">v1.2.1</strong>，2026 年 10 月 8 日發佈。下列按鈕皆為這一版的檔案。</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: calc(var(--space-4) * 1.25);">
         <div class="card" style="display: flex; flex-direction: column; gap: var(--space-3);">
           <div class="card-kicker">網站使用 · 建議</div>
           <div class="card-title" style="font-family: inherit;">網頁字型包</div>
@@ -287,6 +298,20 @@
           <a class="btn btn-secondary" href="https://github.com/ivanusto/changming-serif-tc/releases/download/v1.2.1/changming-serif-tc-1.2.1-woff2.zip" style="text-decoration: none; align-self: start;">woff2.zip</a>
         </div>
       </div>
+      <div style="margin-top: calc(var(--space-6) * 1.25); border: 1px solid var(--color-divider); border-radius: var(--radius-md); padding: var(--space-6); font-size: 14px; line-height: 2; color: var(--color-neutral-700);">
+        <div style="font-family: inherit; font-size: 13px; letter-spacing: 0.2em; color: var(--color-neutral-600); margin-bottom: var(--space-3);">更新紀錄</div>
+        <dl style="margin: 0; display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: var(--space-2) var(--space-4);">
+          <dt style="font-feature-settings: 'lnum', 'tnum'; color: var(--color-accent-700);">v1.2.1 <span style="color: var(--color-neutral-600);">10-08</span></dt>
+          <dd style="margin: 0;">修正 700 字重的「軾」未經變形。</dd>
+          <dt style="font-feature-settings: 'lnum', 'tnum';">v1.2.0 <span style="color: var(--color-neutral-600);">10-07</span></dt>
+          <dd style="margin: 0;">依筆畫密度調整加粗量，改善灰度不均，「鷹」等筆畫密集的字不再偏重。</dd>
+          <dt style="font-feature-settings: 'lnum', 'tnum';">v1.1.0 <span style="color: var(--color-neutral-600);">09-15</span></dt>
+          <dd style="margin: 0;">補入台語、客語用字與羅馬字調號。</dd>
+          <dt style="font-feature-settings: 'lnum', 'tnum';">v1.0.1 <span style="color: var(--color-neutral-600);">09-14</span></dt>
+          <dd style="margin: 0;">首次公開。</dd>
+        </dl>
+        <div style="margin-top: var(--space-3); font-size: 13px;"><a href="https://github.com/ivanusto/changming-serif-tc/releases" target="_blank" rel="noopener">所有版本與說明</a>（以上日期皆為 2026 年）</div>
+      </div>
       <div style="margin-top: calc(var(--space-6) * 1.25); border: 1px solid var(--color-divider); border-radius: var(--radius-md); padding: var(--space-6); font-size: 14px; line-height: 2; color: var(--color-neutral-700); overflow-x: auto;">
         <div style="font-family: inherit; font-size: 13px; letter-spacing: 0.2em; color: var(--color-neutral-600); margin-bottom: var(--space-2);">網頁使用只要三行</div>
         <code style="white-space: pre; font-size: 13px; display: block;">&lt;link rel="stylesheet" href="/assets/changming/changming.css"&gt;
@@ -299,7 +324,7 @@
   <footer style="background: oklch(0.24 0.012 80); color: var(--color-neutral-200); margin-top: calc(var(--space-8) * 1.5);" data-screen-label="頁尾">
     <div style="max-width: 1120px; margin: 0 auto; padding: calc(var(--space-8) * 1.5) var(--space-6); position: relative; overflow: hidden;">
       <div aria-hidden="true" style="position: absolute; right: var(--space-6); top: 50%; transform: translateY(-50%); font-family: inherit; font-size: 220px; line-height: 1; color: var(--color-accent); opacity: 0.16; pointer-events: none;">昌</div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: calc(var(--space-6) * 1.25); position: relative;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: calc(var(--space-6) * 1.25); position: relative;">
         <div>
           <div style="font-size: 22px; letter-spacing: 0.1em; color: var(--color-neutral-100);">昌明體 ChangMing Serif TC</div>
           <p style="margin: var(--space-4) 0 0; font-size: 14px; line-height: 2; text-align: justify;">字型依 SIL Open Font License 1.1 授權。修改自 Noto Serif TC，並自 Noto Serif CJK TC 與源樣明體補入台語、客語用字，© 2014–2024 Adobe。Noto 是 Google 的商標。</p>
