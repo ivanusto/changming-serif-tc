@@ -30,9 +30,9 @@
 <meta name="twitter:description" content="以思源明體為骨架，收斂襯線的鋒芒、圓潤筆畫的轉折。涵蓋台語與客語用字，SIL OFL 1.1 自由授權。">
 <meta name="twitter:image" content="https://ivanusto.github.io/changming-serif-tc/assets/og-cover.png">
 <meta name="twitter:image:alt" content="昌明體 ChangMing Serif TC 字樣">
-<!-- 本頁固定文字的專用子集。整頁 546 個字一次載完，約 440 KB。 -->
-<link rel="preload" href="assets/changming-page/cmsr-page-400.1c32e334.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/changming-page/cmsr-page-700.9292bade.woff2" as="font" type="font/woff2" crossorigin>
+<!-- 本頁固定文字的專用子集。整頁 587 個字一次載完，約 470 KB。 -->
+<link rel="preload" href="assets/changming-page/cmsr-page-400.763f8ed9.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/changming-page/cmsr-page-700.09bbef87.woff2" as="font" type="font/woff2" crossorigin>
 <!-- 完整的分片字型包，給試打區輸入本頁沒有的字時用。非阻塞載入，
      而且必須排在專用子集之前，unicode-range 相同時後宣告的才會勝出。 -->
 <link rel="stylesheet" href="assets/changming/changming.css" media="print" onload="this.media='all'">
@@ -57,6 +57,7 @@
     .share-link:focus-visible { outline: 2px solid var(--color-accent-400); outline-offset: 2px; }
     .version-tag { display: inline-flex; align-items: center; gap: var(--space-2); border: 1px solid var(--color-accent-300); border-radius: 999px; padding: 4px 14px; color: var(--color-accent-700); text-decoration: none; transition: border-color 0.18s ease, background 0.18s ease; }
     .version-tag:hover { border-color: var(--color-accent-600); background: var(--color-accent-100); }
+    .cm-photo-wide { grid-column: 1 / -1; }
     /* 雙欄區塊的欄寬寫在 inline style，手機寬度要用 !important 收成單欄 */
     @media (max-width: 760px) {
       .cm-split { grid-template-columns: minmax(0, 1fr) !important; gap: var(--space-6) !important; }
@@ -218,6 +219,38 @@
           </div>
           <figcaption style="font-size: 13px; color: var(--color-neutral-600); line-height: 1.8;">海報　單一大字即可成畫面，400 字重的骨架清朗端正。</figcaption>
         </figure>
+      </div>
+      <h3 style="font-family: inherit; margin: calc(var(--space-8) * 1.5) 0 var(--space-3); font-weight: 700; font-size: 24px;">實物示範</h3>
+      <p style="margin: 0 0 calc(var(--space-6) * 1.25); max-width: 38em; text-align: justify; line-height: 2; font-size: 15px; color: var(--color-neutral-700);">商品與場景由 AI 影像模型生成空白版本，文字則以昌明體 1.2.1 實際排版後，依物件的透視與曲面貼合合成，保留紙張、布料與木紋的質感。圖中文字皆為字型的真實字形；書名、店名與品牌均為虛構。</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: calc(var(--space-4) * 1.25);">
+          <figure class="cm-photo" style="margin: 0; display: flex; flex-direction: column; gap: var(--space-3);">
+            <img src="assets/inuse/book-1344.webp" srcset="assets/inuse/book-672.webp 672w, assets/inuse/book-1344.webp 1344w" sizes="(max-width: 760px) 100vw, 360px" width="1344" height="896" loading="lazy" decoding="async" alt="以昌明體排版直排書名「島嶼來信」的精裝書封" style="width: 100%; height: auto; display: block; border: 1px solid var(--color-divider);">
+            <figcaption style="font-size: 13px; color: var(--color-neutral-600); line-height: 1.8;">書封　直排書名使用 700 字重，大字不顯生硬。</figcaption>
+          </figure>
+          <figure class="cm-photo" style="margin: 0; display: flex; flex-direction: column; gap: var(--space-3);">
+            <img src="assets/inuse/tea-1344.webp" srcset="assets/inuse/tea-672.webp 672w, assets/inuse/tea-1344.webp 1344w" sizes="(max-width: 760px) 100vw, 360px" width="1344" height="896" loading="lazy" decoding="async" alt="以昌明體排版「凍頂烏龍」直排標籤的茶葉罐" style="width: 100%; height: auto; display: block; border: 1px solid var(--color-divider);">
+            <figcaption style="font-size: 13px; color: var(--color-neutral-600); line-height: 1.8;">茶葉罐　印在弧形標籤上，筆畫依然清楚穩定。</figcaption>
+          </figure>
+          <figure class="cm-photo" style="margin: 0; display: flex; flex-direction: column; gap: var(--space-3);">
+            <img src="assets/inuse/menu-1344.webp" srcset="assets/inuse/menu-672.webp 672w, assets/inuse/menu-1344.webp 1344w" sizes="(max-width: 760px) 100vw, 360px" width="1344" height="896" loading="lazy" decoding="async" alt="以昌明體排版的咖啡館菜單" style="width: 100%; height: auto; display: block; border: 1px solid var(--color-divider);">
+            <figcaption style="font-size: 13px; color: var(--color-neutral-600); line-height: 1.8;">菜單　700 字重的標題搭配 400 字重的品項與價格。</figcaption>
+          </figure>
+          <figure class="cm-photo" style="margin: 0; display: flex; flex-direction: column; gap: var(--space-3);">
+            <img src="assets/inuse/poster-1344.webp" srcset="assets/inuse/poster-672.webp 672w, assets/inuse/poster-1344.webp 1344w" sizes="(max-width: 760px) 100vw, 360px" width="1344" height="896" loading="lazy" decoding="async" alt="以昌明體排版「字裡行間」的展覽海報" style="width: 100%; height: auto; display: block; border: 1px solid var(--color-divider);">
+            <figcaption style="font-size: 13px; color: var(--color-neutral-600); line-height: 1.8;">海報　單一大字構成畫面，直排標題同樣耐看。</figcaption>
+          </figure>
+          <figure class="cm-photo" style="margin: 0; display: flex; flex-direction: column; gap: var(--space-3);">
+            <img src="assets/inuse/phone-1344.webp" srcset="assets/inuse/phone-672.webp 672w, assets/inuse/phone-1344.webp 1344w" sizes="(max-width: 760px) 100vw, 360px" width="1344" height="896" loading="lazy" decoding="async" alt="以昌明體排版長文的手機閱讀畫面" style="width: 100%; height: auto; display: block; border: 1px solid var(--color-divider);">
+            <figcaption style="font-size: 13px; color: var(--color-neutral-600); line-height: 1.8;">手機閱讀　小字號內文是這套字型的主場。</figcaption>
+          </figure>
+          <figure class="cm-photo" style="margin: 0; display: flex; flex-direction: column; gap: var(--space-3);">
+            <img src="assets/inuse/tote-1344.webp" srcset="assets/inuse/tote-672.webp 672w, assets/inuse/tote-1344.webp 1344w" sizes="(max-width: 760px) 100vw, 360px" width="1344" height="896" loading="lazy" decoding="async" alt="以昌明體印上台語「食飽未？」與台羅拼音的帆布袋" style="width: 100%; height: auto; display: block; border: 1px solid var(--color-divider);">
+            <figcaption style="font-size: 13px; color: var(--color-neutral-600); line-height: 1.8;">帆布袋　台語「食飽未？」與台羅調號。</figcaption>
+          </figure>
+          <figure class="cm-photo cm-photo-wide" style="margin: 0; display: flex; flex-direction: column; gap: var(--space-3);">
+            <img src="assets/inuse/sign-1344.webp" srcset="assets/inuse/sign-672.webp 672w, assets/inuse/sign-1344.webp 1344w" sizes="(max-width: 760px) 100vw, 1120px" width="1344" height="896" loading="lazy" decoding="async" alt="以昌明體排版客語「𠊎兜共下來尞」與四縣腔拼音的木招牌" style="width: 100%; height: auto; display: block; border: 1px solid var(--color-divider);">
+            <figcaption style="font-size: 13px; color: var(--color-neutral-600); line-height: 1.8;">木招牌　客語「𠊎兜共下來尞」與四縣腔拼音的上標聲調。</figcaption>
+          </figure>
       </div>
     </div>
   </section>
