@@ -34,6 +34,9 @@ OFL.txt                       字型授權
 == 注意 ==
 - 請直接用 http(s) 開啟頁面。用 file:// 直接開啟 HTML 時，部分瀏覽器會擋下字型。
 - 字型放在其他網域（例如 CDN）時，該網域要允許跨來源載入字型（CORS）。
+- 不想自己放檔案，也可以直接引用：
+  https://changming.yblog.org/fonts/{{VERSION}}/changming.css
+  https://changming.yblog.org/fonts/{{VERSION}}/changming-tail.css
 - 檔名含內容雜湊，可以設定長期快取。
 
 == 授權 ==

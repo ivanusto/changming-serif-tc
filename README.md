@@ -2,7 +2,7 @@
 
 給繁體中文網站用的人文風格明體字 webfont 網頁字型，附 WordPress 外掛，亦提供標準字型檔下載給電腦使用。
 
-[Live Demo 網站]( https://ivanusto.github.io/changming-serif-tc/) 
+[Live Demo 網站](https://changming.yblog.org/)（鏡像：[GitHub Pages](https://ivanusto.github.io/changming-serif-tc/)）
 
 昌明體以思源明體（Noto Serif TC）為骨架，主要設計概念是調整了這些元素：
 - **收斂三角襯線**：襯線不再那麼銳利。
@@ -23,7 +23,7 @@
 
 ## 下載版本
 
-[Releases](https://github.com/ivanusto/changming-serif-tc/releases) 提供四種檔案：
+[Releases](https://github.com/ivanusto/changming-serif-tc/releases) 提供四種檔案。最新版的同一批檔案也放在 Cloudflare 分流，GitHub 下載較慢時可改用，內容與 Release 相同：`https://changming.yblog.org/dl/v<版本>/<檔名>`，例如 [changming-serif-tc-1.2.1-webfont.zip](https://changming.yblog.org/dl/v1.2.1/changming-serif-tc-1.2.1-webfont.zip)。展示網站的下載區兩個來源都有列出。
 
 | 檔案 | 適用情境 |
 |---|---|
@@ -41,6 +41,16 @@
 ```
 
 預載設定與注意事項寫在字型包內的 `README.txt`，也可以直接參考 `example.html`。
+
+**直接引用 CDN**：不想自己放檔案，也可以引用 Cloudflare 上的字型包，已開放跨網域載入。
+
+```html
+<link rel="stylesheet" href="https://changming.yblog.org/fonts/1.2.1/changming.css">
+<link rel="stylesheet" href="https://changming.yblog.org/fonts/1.2.1/changming-tail.css" media="print" onload="this.media='all'">
+<style>body { font-family: "ChangMing Serif TC", Georgia, serif; }</style>
+```
+
+網址帶版號，內容不會變動。把 `1.2.1` 換成 `latest` 會一直跟著最新版，正式網站建議固定版號。
 
 ## 安裝到電腦（TTF）
 
@@ -60,7 +70,7 @@
 
 ## WordPress 外掛安裝
 
-1. 到 [Releases](https://github.com/ivanusto/changming-serif-tc/releases) 下載 `changming-webfont-<版本>.zip`。
+1. 到 [Releases](https://github.com/ivanusto/changming-serif-tc/releases) 或展示網站的 Cloudflare 分流下載 `changming-webfont-<版本>.zip`。
 2. WordPress 後台進入「外掛」、「安裝外掛」、「上傳外掛」，選擇 zip 並啟用。
    - zip 約 17 MB，主機的 PHP 上傳上限（`upload_max_filesize`）要足夠。
    - 若上限不夠，也可以解壓後用 SFTP 放到 `wp-content/plugins/`。
@@ -145,6 +155,8 @@ MORPH_PROCS=8 ./build.sh 1.2.1   # 限制形態學處理的平行數，記憶體
 5. `tools/qa.py` 以格點取樣逐字檢查，確認沒有筆畫流失或填滿，有問題即中止建置。
 6. `tools/gray.py` 報告字頻前 3000 字的灰度分布，供比較灰度是否均勻。
 7. `tools/build.py` 依字頻切片、產生 CSS 與外掛 zip，輸出在 `build/`。
+
+**展示網站**：原始檔在 `gh-pages` 分支，GitHub Pages 與 Cloudflare Worker（靜態資產）都從這個分支發佈。Cloudflare 以 `python3 cf-build.py` 建置到 `dist/`，再以 `npx wrangler deploy` 依 `wrangler.jsonc` 發佈；建置時從 Release 抓 zip 並比對 `cf-sha256.txt`，產生 `/fonts/<版本>/` 字型 CDN 與 `/dl/` 下載分流。發新版時在 `cf-versions.txt` 加上版號、在 `cf-sha256.txt` 加上四個 zip 的 sha256，舊版的 CDN 網址會繼續保留。
 
 **實測效果**（以「一」與「丨」量測豎橫筆畫比）
 
