@@ -1,0 +1,3 @@
+# Versions served under /fonts/<version>/, oldest first. The last line is latest:
+# /fonts/latest/ and /dl/latest/ point at it and only its release zips are mirrored.
+1.2.1

@@ -1,0 +1,36 @@
+# Cloudflare Pages headers. GitHub Pages serves this file as is and ignores it.
+# A header set by two matching rules is joined with a comma, so the narrower
+# rules detach Cache-Control with "!" before setting their own.
+
+/fonts/*
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=86400
+
+/fonts/latest/*
+  ! Cache-Control
+  Cache-Control: public, max-age=300
+
+/fonts/:version/fonts/*
+  ! Cache-Control
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/changming/*
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=86400
+
+/assets/changming/fonts/*
+  ! Cache-Control
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/changming-page/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/inuse/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/dl/*
+  Cache-Control: public, max-age=604800
+
+/dl/latest/*
+  ! Cache-Control
+  Cache-Control: public, max-age=300

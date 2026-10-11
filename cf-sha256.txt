@@ -1,0 +1,4 @@
+29564aa7b824f8b983ef74b054223c35ae56c09e2390b2b26db90671b2d141ed  changming-serif-tc-1.2.1-webfont.zip
+665892123dabb6be3cc0ee54dc61d1fbeb01cac28d42a64e8a718b1c05f8fa2d  changming-webfont-1.2.1.zip
+d9e8393f82448858e960158ff33e93a33c3f2e31425c80ad7962df080707b23a  changming-serif-tc-1.2.1-ttf.zip
+9a4ff8eca2a0fcd66166b3b94d22a73baaed0739672d1d874136c315537bbda2  changming-serif-tc-1.2.1-woff2.zip

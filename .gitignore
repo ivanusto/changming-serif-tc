@@ -5,3 +5,6 @@ Thumbs.db
 # Temporary uploads or build files
 uploads/
 *.tmp
+
+# Cloudflare Pages build output
+dist/
