@@ -1,4 +1,4 @@
-# Cloudflare Pages headers. GitHub Pages serves this file as is and ignores it.
+# Cloudflare static asset headers. GitHub Pages serves this file as is and ignores it.
 # A header set by two matching rules is joined with a comma, so the narrower
 # rules detach Cache-Control with "!" before setting their own.
 

@@ -8,3 +8,4 @@ uploads/
 
 # Cloudflare Pages build output
 dist/
+.wrangler/

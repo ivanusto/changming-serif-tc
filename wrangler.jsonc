@@ -1,0 +1,11 @@
+// Cloudflare Worker serving the demo site, font CDN and download mirror as static assets.
+// Build command: python3 cf-build.py   Deploy command: npx wrangler deploy
+// _headers and _redirects inside dist/ apply to the assets as they do on Pages.
+{
+  "name": "changming-serif-tc",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  }
+}

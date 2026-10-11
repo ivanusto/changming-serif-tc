@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Cloudflare Pages build: copy the site into dist/ and add the font CDN and download mirror.
+"""Cloudflare build: copy the site into dist/ and add the font CDN and download mirror.
 
-Pages settings: production branch gh-pages, build command "python3 cf-build.py",
-output directory "dist". Release zips are fetched at build time instead of being
+Deployed as a Worker with static assets: production branch gh-pages, build
+command "python3 cf-build.py", deploy command "npx wrangler deploy" (see
+wrangler.jsonc). Release zips are fetched at build time instead of being
 committed, and every one is checked against cf-sha256.txt. ZIP_DIR=<dir> takes
 the zips from a local directory instead, for testing the build offline.
 
@@ -21,7 +22,8 @@ import zipfile
 HERE = os.path.dirname(os.path.abspath(__file__))
 DIST = os.path.join(HERE, "dist")
 RELEASE = "https://github.com/ivanusto/changming-serif-tc/releases/download/v%s/%s"
-SKIP = {"dist", ".git", ".gitignore", "cf-build.py", "cf-versions.txt", "cf-sha256.txt"}
+SKIP = {"dist", ".git", ".gitignore", "cf-build.py", "cf-versions.txt", "cf-sha256.txt",
+        "wrangler.jsonc", ".wrangler"}
 
 
 def versions():
